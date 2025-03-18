@@ -1,0 +1,2358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Club - Community</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        }
+        
+        :root {
+            --primary: #FF6B6B;
+            --primary-hover: #FF8E53;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text: #ffffff;
+            --text-muted: #b0b0b0;
+            --border: #333;
+            --gradient: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header styles */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-badge {
+            background: var(--gradient);
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin-right: 30px;
+        }
+        
+        .nav-menu li {
+            margin: 0 15px;
+        }
+        
+        .nav-menu a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--text);
+        }
+        
+        .nav-menu a.active {
+            position: relative;
+        }
+        
+        .nav-menu a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .user-name {
+            margin-right: 5px;
+            font-weight: 500;
+        }
+        
+        /* Search and dropdown styles */
+        .search-box {
+            position: relative;
+            margin: 0 30px;
+        }
+        
+        .search-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px 8px 35px;
+            width: 200px;
+            color: var(--text);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            width: 300px;
+            outline: none;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            opacity: 0.6;
+        }
+        
+        /* Notifications dropdown */
+        .notifications {
+            position: relative;
+            margin-right: 20px;
+        }
+        
+        .notification-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        /* Dropdown menu */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            width: 200px;
+            z-index: 100;
+            padding: 10px 0;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .dropdown-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            opacity: 0.7;
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 8px 0;
+        }
+        
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 13px;
+        }
+        
+        /* Community page specific styles */
+        .community-page {
+            padding: 30px 0;
+        }
+        
+        .page-header {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header-content h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header-content p {
+            color: var(--text-muted);
+            max-width: 600px;
+        }
+        
+        /* Community stats */
+        .community-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 107, 107, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+        
+        .stat-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--primary);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        
+        /* Main layout with forum and sidebar */
+        .community-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        /* Forum categories */
+        .forum-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .category-header {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .category-icon.strategy {
+            background: rgba(54, 162, 235, 0.1);
+            color: #36A2EB;
+        }
+        
+        .category-icon.monetization {
+            background: rgba(246, 173, 85, 0.1);
+            color: #F6AD55;
+        }
+        
+        .category-icon.technical {
+            background: rgba(101, 116, 205, 0.1);
+            color: #6574CD;
+        }
+        
+        .category-icon.showcase {
+            background: rgba(72, 187, 120, 0.1);
+            color: #48BB78;
+        }
+        
+        .category-icon.social {
+            background: rgba(237, 100, 166, 0.1);
+            color: #ED64A6;
+        }
+        
+        .category-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .category-title-area {
+            flex-grow: 1;
+        }
+        
+        .category-title {
+            font-size: 18px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        
+        .category-subtitle {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        .category-stats {
+            display: flex;
+            gap: 15px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .stat-item svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 5px;
+            opacity: 0.6;
+        }
+        
+        .threads-list {
+            padding: 0;
+        }
+        
+        .thread-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            transition: all 0.3s ease;
+        }
+        
+        .thread-item:last-child {
+            border-bottom: none;
+        }
+        
+        .thread-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .thread-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text);
+            background: linear-gradient(45deg, #36A2EB, #6574CD);
+        }
+        
+        .thread-avatar.orange {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+        
+        .thread-avatar.green {
+            background: linear-gradient(45deg, #48BB78, #38B2AC);
+        }
+        
+        .thread-avatar.purple {
+            background: linear-gradient(45deg, #9F7AEA, #667EEA);
+        }
+        
+        .thread-content {
+            flex-grow: 1;
+        }
+        
+        .thread-title {
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .thread-title a {
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .thread-title a:hover {
+            color: var(--primary);
+        }
+        
+        .thread-meta {
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            gap: 10px;
+        }
+        
+        .thread-author {
+            font-weight: 500;
+        }
+        
+        .thread-stats {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .thread-replies {
+            margin-bottom: 5px;
+        }
+        
+        .thread-activity {
+            display: flex;
+            align-items: center;
+        }
+        
+        .thread-activity svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 5px;
+            opacity: 0.6;
+        }
+        
+        .thread-badge {
+            margin-left: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--primary);
+        }
+        
+        .thread-badge.hot {
+            background: rgba(246, 173, 85, 0.1);
+            color: #F6AD55;
+        }
+        
+        .thread-badge.new {
+            background: rgba(72, 187, 120, 0.1);
+            color: #48BB78;
+        }
+        
+        .thread-badge.solved {
+            background: rgba(54, 162, 235, 0.1);
+            color: #36A2EB;
+        }
+        
+        .thread-badge.official {
+            background: rgba(237, 100, 166, 0.1);
+            color: #ED64A6;
+        }
+        
+        /* View all button */
+        .view-all {
+            padding: 12px 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .view-all:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Sidebar */
+        .community-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .sidebar-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .sidebar-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        /* Events */
+        .events-list {
+            padding: 20px;
+        }
+        
+        .event-item {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        .event-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .event-date {
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            min-width: 60px;
+            margin-right: 15px;
+        }
+        
+        .event-month {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+        
+        .event-day {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .event-content {
+            flex-grow: 1;
+        }
+        
+        .event-title {
+            font-size: 16px;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        
+        .event-details {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .event-time, .event-host {
+            display: flex;
+            align-items: center;
+        }
+        
+        .event-time svg, .event-host svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 4px;
+            opacity: 0.6;
+        }
+        
+        /* Member highlights */
+        .member-highlights {
+            padding: 20px;
+        }
+        
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .highlight-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--text);
+            background: linear-gradient(45deg, #36A2EB, #6574CD);
+        }
+        
+        .highlight-avatar.orange {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+        
+        .highlight-avatar.green {
+            background: linear-gradient(45deg, #48BB78, #38B2AC);
+        }
+        
+        .highlight-content {
+            flex-grow: 1;
+        }
+        
+        .highlight-name {
+            font-size: 16px;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        
+        .highlight-role {
+            color: var(--primary);
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+        
+        .highlight-stats {
+            display: flex;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+        
+        .highlight-stat {
+            display: flex;
+            align-items: center;
+        }
+        
+        .highlight-stat svg {
+            width: 12px;
+            height: 12px;
+            margin-right: 4px;
+            opacity: 0.6;
+        }
+        
+        /* Leaderboard */
+        .leaderboard {
+            padding: 20px;
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+        
+        .leaderboard-rank {
+            width: 30px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .leaderboard-rank.top {
+            color: #F6AD55;
+        }
+        
+        .leaderboard-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text);
+            background: linear-gradient(45deg, #36A2EB, #6574CD);
+        }
+        
+        .leaderboard-avatar.orange {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+        
+        .leaderboard-avatar.green {
+            background: linear-gradient(45deg, #48BB78, #38B2AC);
+        }
+        
+        .leaderboard-avatar.purple {
+            background: linear-gradient(45deg, #9F7AEA, #667EEA);
+        }
+        
+        .leaderboard-name {
+            flex-grow: 1;
+            font-size: 14px;
+        }
+        
+        .leaderboard-points {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* Success stories */
+        .success-stories {
+            margin-bottom: 50px;
+        }
+        
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .story-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .story-header {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .story-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 60px 20px 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        }
+        
+        .story-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: var(--text);
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            border: 3px solid var(--dark-bg);
+            position: absolute;
+            bottom: -30px;
+            left: 20px;
+        }
+        
+        .story-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .story-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+        
+        .story-author {
+            font-weight: 500;
+        }
+        
+        .story-content {
+            padding: 40px 20px 20px;
+        }
+        
+        .story-text {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .story-achievements {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .achievement {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .achievement svg {
+            width: 14px;
+            height: 14px;
+            color: var(--primary);
+        }
+        
+        .story-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .story-reactions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .reaction {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-muted);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .reaction:hover {
+            color: var(--primary);
+        }
+        
+        .reaction svg {
+            width: 14px;
+            height: 14px;
+        }
+        
+        .story-btn {
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .story-btn:hover {
+            text-decoration: underline;
+        }
+        
+        /* Community activity feed */
+        .activity-feed {
+            margin-bottom: 50px;
+        }
+        
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .feed-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+        
+        .feed-tabs {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .feed-tab {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .feed-tab:hover {
+            color: var(--text);
+        }
+        
+        .feed-tab.active {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .feed-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .activity-item {
+            display: flex;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .activity-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .activity-item::before {
+            content: "";
+            position: absolute;
+            top: 40px;
+            bottom: -25px;
+            left: 20px;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 0;
+        }
+        
+        .activity-item:last-child::before {
+            display: none;
+        }
+        
+        .activity-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text);
+            background: linear-gradient(45deg, #36A2EB, #6574CD);
+            z-index: 1;
+        }
+        
+        .activity-avatar.orange {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+        
+        .activity-avatar.green {
+            background: linear-gradient(45deg, #48BB78, #38B2AC);
+        }
+        
+        .activity-avatar.purple {
+            background: linear-gradient(45deg, #9F7AEA, #667EEA);
+        }
+        
+        .activity-content {
+            flex-grow: 1;
+        }
+        
+        .activity-header {
+            margin-bottom: 8px;
+        }
+        
+        .activity-user {
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .activity-action {
+            color: var(--text-muted);
+        }
+        
+        .activity-title {
+            color: var(--primary);
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+        
+        .activity-body {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        /* Section header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+        
+        .section-header .view-all-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .section-header .view-all-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 1100px) {
+            .community-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .search-input:focus {
+                width: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            .user-menu {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .nav-menu {
+                margin-right: 0;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .nav-menu li {
+                margin: 0 10px;
+                white-space: nowrap;
+            }
+            
+            .search-box {
+                display: none;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header-content {
+                margin-bottom: 20px;
+            }
+            
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feed-tabs {
+                flex-wrap: wrap;
+            }
+        }
+        
+        /* JS toggle classes */
+        .display-none {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                ZERO CLUB
+                <span class="logo-badge">MEMBER</span>
+            </div>
+            
+            <div class="user-menu">
+                <ul class="nav-menu">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="templates.html">Templates</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                    <li><a href="community.html" class="active">Community</a></li>
+                    <li><a href="support.html">Support</a></li>
+                </ul>
+                
+                <div class="search-box">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </div>
+                
+                <div class="notifications">
+                    <div class="notification-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                    </div>
+                    <div class="notification-badge">3</div>
+                </div>
+                
+                <div class="user-profile dropdown">
+                    <div class="user-avatar">J</div>
+                    <div class="user-name">John Doe</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                    
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            My Profile
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                <polyline points="7 3 7 8 15 8"></polyline>
+                            </svg>
+                            My Websites
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            Account Settings
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="community-page">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-content">
+                    <h1>Zero Club Community</h1>
+                    <p>Connect with thousands of successful website creators, share strategies, get feedback, and accelerate your progress through collaboration.</p>
+                </div>
+                <div class="header-actions">
+                    <a href="#" class="btn">Start a Discussion</a>
+                </div>
+            </div>
+            
+            <!-- Community Stats -->
+            <div class="community-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-value">14,253</div>
+                    <div class="stat-label">Active Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-value">157,842</div>
+                    <div class="stat-label">Total Posts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-value">128</div>
+                    <div class="stat-label">Webinars Hosted</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-value">$4.2M</div>
+                    <div class="stat-label">Member Revenue</div>
+                </div>
+            </div>
+            
+            <!-- Main Layout -->
+            <div class="community-layout">
+                <!-- Left Side: Forum -->
+                <div class="forum-categories">
+                    <!-- Strategy & Growth Category -->
+                    <div class="category-card">
+                        <div class="category-header">
+                            <div class="category-icon strategy">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="category-title-area">
+                                <h3 class="category-title">Strategy & Growth</h3>
+                                <div class="category-subtitle">Traffic strategies, growth hacking, scaling your sites</div>
+                            </div>
+                            <div class="category-stats">
+                                <div class="stat-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                    </svg>
+                                    482 threads
+                                </div>
+                                <div class="stat-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                    2.4k members
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="threads-list">
+                            <div class="thread-item">
+                                <div class="thread-avatar orange">R</div>
+                                <div class="thread-content">
+                                    <h3 class="thread-title"><a href="#">TikTok strategy that brought me 25k visitors in 7 days</a></h3>
+                                    <div class="thread-meta">
+                                        <span class="thread-author">Ryan T.</span>
+                                        <span class="thread-time">2 hours ago</span>
+                                        <span class="thread-badge hot">HOT</span>
+                                    </div>
+                                </div>
+                                <div class="thread-stats">
+                                    <div class="thread-replies">128 replies</div>
+                                    <div class="thread-activity">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        1.4k views
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="thread-item">
+                                <div class="thread-avatar green">K</div>
+                                <div class="thread-content">
+                                    <h3 class="thread-title"><a href="#">Pinterest traffic is making a comeback - here's how</a></h3>
+                                    <div class="thread-meta">
+                                        <span class="thread-author">Kelly M.</span>
+                                        <span class="thread-time">Yesterday</span>
+                                    </div>
+                                </div>
+                                <div class="thread-stats">
+                                    <div class="thread-replies">47 replies</div>
+                                    <div class="thread-activity">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        842 views
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="thread-item">
+                                <div class="thread-avatar">D</div>
+                                <div class="thread-content">
+                                    <h3 class="thread-title"><a href="#">SEO case study: How I ranked #1 for my main keyword</a></h3>
+                                    <div class="thread-meta">
+                                        <span class="thread-author">David L.</span>
+                                        <span class="thread-time">3 days ago</span>
+                                    </div>
+                                </div>
+                                <div class="thread-stats">
+                                    <div class="thread-replies">89 replies</div>
+                                    <div class="thread-activity">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        1.2k views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="view-all">View All Threads</a>
+                    </div>
+                    
+                    <!-- Monetization Category -->
+                    <div class="category-card">
+                        <div class="category-header">
+                            <div class="category-icon monetization">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                            </div>
+                            <div class="category-title-area">
+                                <h3 class="category-title">Monetization & Revenue</h3>
+                                <div class="category-subtitle">Ads, affiliate marketing, products, subscription models</div>
+                            </div>
+                            <div class="category-stats">
+                                <div class="stat-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                    </svg>
+                                    536 threads
+                                </div>
+                                <div class="stat-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                    3.2k members
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="threads-list">
+                            <div class="thread-item">
+                                <div class="thread-avatar purple">S</div>
+                                <div class="thread-content">
+                                    <h3 class="thread-title"><a href="#">Just hit $10k/month with my recipe blog - here's how</a></h3>
+                                    <div class="thread-meta">
+                                        <span class="thread-author">Sarah J.</span>
+                                        <span class="thread-time">5 hours ago</span>
+                                        <span class="thread-badge hot">HOT</span>
+                                    </div>
+                                </div>
+                                <div class="thread-stats">
+                                    <div class="thread-replies">142 replies</div>
+                                    <div class="thread-activity">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        1.8k views
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="thread-item">
+                                <div class="thread-avatar">J</div>
+                                <div class="thread-content">
+                                    <h3 class="thread-title"><a href="#">Which ad network is performing best for you in 2025?</a></h3>
+                                    <div class="thread-meta">
+                                        <span class="thread-author">Jason T.</span>
+                                        <span class="thread-time">2 days ago</span>
+                                    </div>
+                                </div>
+                                <div class="thread-stats">
+                                    <div class="thread-replies">76 replies</div>
+                                    <div class="thread-activity">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        1.1k views
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="thread-item">
+                                <div class="thread-avatar orange">M</div>
+                                <div class="thread-content">
+                                    <h3 class="thread-title"><a href="#">Subscription vs one-time products - my revenue comparison</a></h3>
+                                    <div class="thread-meta">
+                                        <span class="thread-author">Mike W.</span>
+                                        <span class="thread-time">4 days ago</span>
+                                        <span class="thread-badge">POPULAR</span>
+                                    </div>
+                                </div>
+                                <div class="thread-stats">
+                                    <div class="thread-replies">93 replies</div>
+                                    <div class="thread-activity">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        972 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="view-all">View All Threads</a>
+                    </div>
+                    
+                    <!-- Technical Help Category -->
+                    <div class="category-card">
+                        <div class="category-header">
+                            <div class="category-icon technical">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="16 18 22 12 16 6"></polyline>
+                                    <polyline points="8 6 2 12 8 18"></polyline>
+                                </svg>
+                            </div>
+                            <div class="category-title-area">
+                                <h3 class="category-title">Technical Help</h3>
+                                <div class="category-subtitle">Website setup, troubleshooting, tools assistance</div>
+                            </div>
+                            <div class="category-stats">
+                                <div class="stat-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                    </svg>
+                                    314 threads
+                                </div>
+                                <div class="stat-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                    1.8k members
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="threads-list">
+                            <div class="thread-item">
+                                <div class="thread-avatar green">L</div>
+                                <div class="thread-content">
+                                    <h3 class="thread-title"><a href="#">Can't get Google Analytics to work with my site</a></h3>
+                                    <div class="thread-meta">
+                                        <span class="thread-author">Lisa C.</span>
+                                        <span class="thread-time">8 hours ago</span>
+                                        <span class="thread-badge solved">SOLVED</span>
+                                    </div>
+                                </div>
+                                <div class="thread-stats">
+                                    <div class="thread-replies">12 replies</div>
+                                    <div class="thread-activity">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        238 views
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="thread-item">
+                                <div class="thread-avatar">T</div>
+                                <div class="thread-content">
+                                    <h3 class="thread-title"><a href="#">Best hosting provider for high-traffic sites?</a></h3>
+                                    <div class="thread-meta">
+                                        <span class="thread-author">Tom B.</span>
+                                        <span class="thread-time">Yesterday</span>
+                                    </div>
+                                </div>
+                                <div class="thread-stats">
+                                    <div class="thread-replies">28 replies</div>
+                                    <div class="thread-activity">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        384 views
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="thread-item">
+                                <div class="thread-avatar purple">A</div>
+                                <div class="thread-content">
+                                    <h3 class="thread-title"><a href="#">How to set up Stripe payments for subscription?</a></h3>
+                                    <div class="thread-meta">
+                                        <span class="thread-author">Alex M.</span>
+                                        <span class="thread-time">3 days ago</span>
+                                        <span class="thread-badge new">NEW</span>
+                                    </div>
+                                </div>
+                                <div class="thread-stats">
+                                    <div class="thread-replies">9 replies</div>
+                                    <div class="thread-activity">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        152 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="view-all">View All Threads</a>
+                    </div>
+                </div>
+                
+                <!-- Right Side: Sidebar -->
+                <div class="community-sidebar">
+                    <!-- Upcoming Events -->
+                    <div class="sidebar-card">
+                        <div class="sidebar-header">
+                            <h3>Upcoming Events</h3>
+                        </div>
+                        <div class="events-list">
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="event-month">Mar</div>
+                                    <div class="event-day">22</div>
+                                </div>
+                                <div class="event-content">
+                                    <h4 class="event-title">Advanced SEO Masterclass</h4>
+                                    <div class="event-details">
+                                        <div class="event-time">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <polyline points="12 6 12 12 16 14"></polyline>
+                                            </svg>
+                                            2:00 PM EST
+                                        </div>
+                                        <div class="event-host">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
+                                            David L.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="event-month">Mar</div>
+                                    <div class="event-day">25</div>
+                                </div>
+                                <div class="event-content">
+                                    <h4 class="event-title">Affiliate Marketing Strategies</h4>
+                                    <div class="event-details">
+                                        <div class="event-time">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <polyline points="12 6 12 12 16 14"></polyline>
+                                            </svg>
+                                            1:00 PM EST
+                                        </div>
+                                        <div class="event-host">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
+                                            Sarah J.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="event-month">Mar</div>
+                                    <div class="event-day">28</div>
+                                </div>
+                                <div class="event-content">
+                                    <h4 class="event-title">Website Review Session</h4>
+                                    <div class="event-details">
+                                        <div class="event-time">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <polyline points="12 6 12 12 16 14"></polyline>
+                                            </svg>
+                                            3:30 PM EST
+                                        </div>
+                                        <div class="event-host">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
+                                            Ryan T.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="view-all">View Calendar</a>
+                    </div>
+                    
+                    <!-- Member Highlights -->
+                    <div class="sidebar-card">
+                        <div class="sidebar-header">
+                            <h3>Member Highlights</h3>
+                        </div>
+                        <div class="member-highlights">
+                            <div class="highlight-item">
+                                <div class="highlight-avatar orange">S</div>
+                                <div class="highlight-content">
+                                    <h4 class="highlight-name">Sarah Johnson</h4>
+                                    <div class="highlight-role">Recipe Blog Expert</div>
+                                    <div class="highlight-stats">
+                                        <div class="highlight-stat">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                            $12K/mo
+                                        </div>
+                                        <div class="highlight-stat">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                            </svg>
+                                            482 posts
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="highlight-item">
+                                <div class="highlight-avatar">D</div>
+                                <div class="highlight-content">
+                                    <h4 class="highlight-name">David Lee</h4>
+                                    <div class="highlight-role">SEO Specialist</div>
+                                    <div class="highlight-stats">
+                                        <div class="highlight-stat">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                            $9K/mo
+                                        </div>
+                                        <div class="highlight-stat">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                            </svg>
+                                            354 posts
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="highlight-item">
+                                <div class="highlight-avatar green">R</div>
+                                <div class="highlight-content">
+                                    <h4 class="highlight-name">Ryan Thompson</h4>
+                                    <div class="highlight-role">TikTok Growth Expert</div>
+                                    <div class="highlight-stats">
+                                        <div class="highlight-stat">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                            $15K/mo
+                                        </div>
+                                        <div class="highlight-stat">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                            </svg>
+                                            296 posts
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="view-all">View All Members</a>
+                    </div>
+                    
+                    <!-- Leaderboard -->
+                    <div class="sidebar-card">
+                        <div class="sidebar-header">
+                            <h3>Community Leaderboard</h3>
+                        </div>
+                        <div class="leaderboard">
+                            <div class="leaderboard-item">
+                                <div class="leaderboard-rank top">1</div>
+                                <div class="leaderboard-avatar orange">S</div>
+                                <div class="leaderboard-name">Sarah J.</div>
+                                <div class="leaderboard-points">12,458</div>
+                            </div>
+                            
+                            <div class="leaderboard-item">
+                                <div class="leaderboard-rank top">2</div>
+                                <div class="leaderboard-avatar green">R</div>
+                                <div class="leaderboard-name">Ryan T.</div>
+                                <div class="leaderboard-points">11,842</div>
+                            </div>
+                            
+                            <div class="leaderboard-item">
+                                <div class="leaderboard-rank top">3</div>
+                                <div class="leaderboard-avatar">D</div>
+                                <div class="leaderboard-name">David L.</div>
+                                <div class="leaderboard-points">10,753</div>
+                            </div>
+                            
+                            <div class="leaderboard-item">
+                                <div class="leaderboard-rank">4</div>
+                                <div class="leaderboard-avatar purple">A</div>
+                                <div class="leaderboard-name">Alex M.</div>
+                                <div class="leaderboard-points">9,845</div>
+                            </div>
+                            
+                            <div class="leaderboard-item">
+                                <div class="leaderboard-rank">5</div>
+                                <div class="leaderboard-avatar green">K</div>
+                                <div class="leaderboard-name">Kelly M.</div>
+                                <div class="leaderboard-points">8,632</div>
+                            </div>
+                            
+                            <div class="leaderboard-item">
+                                <div class="leaderboard-rank">6</div>
+                                <div class="leaderboard-avatar">J</div>
+                                <div class="leaderboard-name">You</div>
+                                <div class="leaderboard-points">5,249</div>
+                            </div>
+                        </div>
+                        <a href="#" class="view-all">View Full Leaderboard</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Success Stories -->
+            <div class="success-stories">
+                <div class="section-header">
+                    <h2>Member Success Stories</h2>
+                    <a href="#" class="view-all-link">View All Stories</a>
+                </div>
+                
+                <div class="stories-grid">
+                    <div class="story-card">
+                        <div class="story-header" style="background-image: url('/api/placeholder/800/500');">
+                            <div class="story-overlay">
+                                <h3 class="story-title">From $0 to $8K/Month in 6 Months</h3>
+                                <div class="story-meta">
+                                    <span class="story-author">Sarah Johnson</span>
+                                    <span class="story-time">Recipe Blog</span>
+                                </div>
+                            </div>
+                            <div class="story-avatar">S</div>
+                        </div>
+                        <div class="story-content">
+                            <p class="story-text">I was completely new to website building when I joined Zero Club. Within 6 months of following the exact blueprint, my recipe blog is now generating $8,200/month from a combination of ads and affiliate marketing.</p>
+                            
+                            <div class="story-achievements">
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    $8K Monthly
+                                </div>
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    6 Months
+                                </div>
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    250K Visits
+                                </div>
+                            </div>
+                            
+                            <div class="story-footer">
+                                <div class="story-reactions">
+                                    <div class="reaction">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                        </svg>
+                                        148
+                                    </div>
+                                    <div class="reaction">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                        </svg>
+                                        32
+                                    </div>
+                                </div>
+                                <a href="#" class="story-btn">Read Full Story</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="story-card">
+                        <div class="story-header" style="background-image: url('/api/placeholder/800/500');">
+                            <div class="story-overlay">
+                                <h3 class="story-title">Built a $15K/Month Gaming Site</h3>
+                                <div class="story-meta">
+                                    <span class="story-author">David Lee</span>
+                                    <span class="story-time">Gaming Review Blog</span>
+                                </div>
+                            </div>
+                            <div class="story-avatar">D</div>
+                        </div>
+                        <div class="story-content">
+                            <p class="story-text">I was always passionate about gaming, so I decided to create a review site focusing on gaming peripherals. Using the Zero Club TikTok strategy, I built a site that now generates $15K/month through affiliate commissions and display ads.</p>
+                            
+                            <div class="story-achievements">
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    $15K Monthly
+                                </div>
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    8 Months
+                                </div>
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    375K Visits
+                                </div>
+                            </div>
+                            
+                            <div class="story-footer">
+                                <div class="story-reactions">
+                                    <div class="reaction">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                        </svg>
+                                        215
+                                    </div>
+                                    <div class="reaction">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                        </svg>
+                                        47
+                                    </div>
+                                </div>
+                                <a href="#" class="story-btn">Read Full Story</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="story-card">
+                        <div class="story-header" style="background-image: url('/api/placeholder/800/500');">
+                            <div class="story-overlay">
+                                <h3 class="story-title">Pinterest Strategy Made Me $5K/Month</h3>
+                                <div class="story-meta">
+                                    <span class="story-author">Kelly Murphy</span>
+                                    <span class="story-time">Home Decor Blog</span>
+                                </div>
+                            </div>
+                            <div class="story-avatar green">K</div>
+                        </div>
+                        <div class="story-content">
+                            <p class="story-text">I struggled with traffic until I implemented the Pinterest strategy from Zero Club. Now my home decor blog gets 85% of its traffic from Pinterest, and I'm earning $5K/month consistently with minimal effort.</p>
+                            
+                            <div class="story-achievements">
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    $5K Monthly
+                                </div>
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    4 Months
+                                </div>
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    180K Visits
+                                </div>
+                            </div>
+                            
+                            <div class="story-footer">
+                                <div class="story-reactions">
+                                    <div class="reaction">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                        </svg>
+                                        172
+                                    </div>
+                                    <div class="reaction">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                        </svg>
+                                        39
+                                    </div>
+                                </div>
+                                <a href="#" class="story-btn">Read Full Story</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="story-card">
+                        <div class="story-header" style="background-image: url('/api/placeholder/800/500');">
+                            <div class="story-overlay">
+                                <h3 class="story-title">Subscription Model Brings $7K/Month</h3>
+                                <div class="story-meta">
+                                    <span class="story-author">Michael Wilson</span>
+                                    <span class="story-time">Fitness Website</span>
+                                </div>
+                            </div>
+                            <div class="story-avatar orange">M</div>
+                        </div>
+                        <div class="story-content">
+                            <p class="story-text">I converted my fitness blog into a membership site with Zero Club's subscription model template. Now I have over 700 recurring members paying $9.99/month, creating a sustainable $7K monthly income.</p>
+                            
+                            <div class="story-achievements">
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    $7K Monthly
+                                </div>
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    10 Months
+                                </div>
+                                <div class="achievement">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                    </svg>
+                                    700 Members
+                                </div>
+                            </div>
+                            
+                            <div class="story-footer">
+                                <div class="story-reactions">
+                                    <div class="reaction">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                        </svg>
+                                        198
+                                    </div>
+                                    <div class="reaction">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                        </svg>
+                                        52
+                                    </div>
+                                </div>
+                                <a href="#" class="story-btn">Read Full Story</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Activity Feed -->
+            <div class="activity-feed">
+                <div class="feed-header">
+                    <h2>Community Activity</h2>
+                    <div class="feed-tabs">
+                        <div class="feed-tab active">All Activity</div>
+                        <div class="feed-tab">Discussions</div>
+                        <div class="feed-tab">Questions</div>
+                        <div class="feed-tab">Success Stories</div>
+                        <div class="feed-tab">Resources</div>
+                    </div>
+                </div>
+                
+                <div class="feed-container">
+                    <div class="activity-item">
+                        <div class="activity-avatar orange">S</div>
+                        <div class="activity-content">
+                            <div class="activity-header">
+                                <span class="activity-user">Sarah Johnson</span>
+                                <span class="activity-action"> shared a success story: </span>
+                                <span class="activity-title">From $0 to $8K/Month in 6 Months</span>
+                            </div>
+                            <div class="activity-time">2 hours ago</div>
+                            <div class="activity-body">
+                                I was completely new to website building when I joined Zero Club. Within 6 months of following the exact blueprint, my recipe blog is now generating $8,200/month from a combination of ads and affiliate marketing.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-avatar green">R</div>
+                        <div class="activity-content">
+                            <div class="activity-header">
+                                <span class="activity-user">Ryan Thompson</span>
+                                <span class="activity-action"> posted in </span>
+                                <span class="activity-title">Strategy & Growth</span>
+                            </div>
+                            <div class="activity-time">3 hours ago</div>
+                            <div class="activity-body">
+                                Just wanted to share my TikTok strategy that brought me 25k visitors in just 7 days. It's all about creating short, high-value tutorials that solve specific problems in your niche. I've been focusing on 15-second tutorials that provide instant value...
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-avatar">D</div>
+                        <div class="activity-content">
+                            <div class="activity-header">
+                                <span class="activity-user">David Lee</span>
+                                <span class="activity-action"> replied to </span>
+                                <span class="activity-title">SEO case study: How I ranked #1 for my main keyword</span>
+                            </div>
+                            <div class="activity-time">4 hours ago</div>
+                            <div class="activity-body">
+                                The biggest factor for me was definitely the content clustering strategy. By creating 15 supporting articles all linking to my main pillar content, I was able to signal to Google that my site was an authority on the topic. This, combined with...
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-avatar purple">A</div>
+                        <div class="activity-content">
+                            <div class="activity-header">
+                                <span class="activity-user">Alex Mitchell</span>
+                                <span class="activity-action"> asked a question in </span>
+                                <span class="activity-title">Technical Help</span>
+                            </div>
+                            <div class="activity-time">6 hours ago</div>
+                            <div class="activity-body">
+                                Has anyone successfully set up Stripe for recurring payments? I'm trying to implement the subscription model for my fitness site but getting stuck on the webhook configuration. Any help would be appreciated!
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-avatar orange">M</div>
+                        <div class="activity-content">
+                            <div class="activity-header">
+                                <span class="activity-user">Michael Wilson</span>
+                                <span class="activity-action"> shared a resource: </span>
+                                <span class="activity-title">Ultimate Email Sequence for Membership Conversions</span>
+                            </div>
+                            <div class="activity-time">Yesterday</div>
+                            <div class="activity-body">
+                                After a lot of A/B testing, I've perfected my email sequence for converting free subscribers to paid members. It's a 7-email sequence with proven subject lines and copy that's generating a 12% conversion rate. I'm sharing the full template here...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Dropdown toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // User dropdown toggle
+            const userProfile = document.querySelector('.user-profile');
+            userProfile.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+            });
+            
+            // Activity feed tabs
+            const feedTabs = document.querySelectorAll('.feed-tab');
+            feedTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    feedTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Story reactions hover effect
+            const reactions = document.querySelectorAll('.reaction');
+            reactions.forEach(reaction => {
+                reaction.addEventListener('mouseenter', function() {
+                    const svg = this.querySelector('svg');
+                    svg.style.stroke = '#FF6B6B';
+                    this.style.color = '#FF6B6B';
+                });
+                
+                reaction.addEventListener('mouseleave', function() {
+                    const svg = this.querySelector('svg');
+                    svg.style.stroke = '';
+                    this.style.color = '';
+                });
+            });
+            
+            // Community stats counter animation
+            function animateValue(obj, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const value = Math.floor(progress * (end - start) + start);
+                    
+                    if (end >= 1000000) {
+                        obj.textContent = (value / 1000000).toFixed(1) + 'M';
+                    } else if (end >= 1000) {
+                        obj.textContent = (value / 1000).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    } else {
+                        obj.textContent = value;
+                    }
+                    
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+            
+            // Animate stats when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statElements = document.querySelectorAll('.stat-value');
+                        statElements.forEach(el => {
+                            let finalValue;
+                            const text = el.textContent;
+                            // Parse the value
+                            if (text.includes('M')) {
+                                finalValue = parseFloat(text.replace('M', '')) * 1000000;
+                            } else if (text.includes('K')) {
+                                finalValue = parseFloat(text.replace('K', '')) * 1000;
+                            } else {
+                                finalValue = parseFloat(text.replace(/,/g, ''));
+                            }
+                            
+                            animateValue(el, 0, finalValue, 1500);
+                        });
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            const statsSection = document.querySelector('.community-stats');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+            
+            // Thread hover effect
+            const threads = document.querySelectorAll('.thread-item');
+            threads.forEach(thread => {
+                thread.addEventListener('mouseenter', function() {
+                    const title = this.querySelector('.thread-title a');
+                    title.style.color = '#FF6B6B';
+                });
+                
+                thread.addEventListener('mouseleave', function() {
+                    const title = this.querySelector('.thread-title a');
+                    title.style.color = '';
+                });
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function() {
+                userProfile.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
