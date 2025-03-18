@@ -1942,17 +1942,27 @@
                     if (!startTimestamp) startTimestamp = timestamp;
                     const progress = Math.min((timestamp - startTimestamp) / duration, 1);
                     const value = Math.floor(progress * (end - start) + start);
-                    
                     if (obj.classList.contains('usage-value')) {
-                        // Format numbers with commas and abbreviate large numbers
-                        let formattedValue = value;
-                        if (end >= 1000000) {
-                            formattedValue = (value / 1000000).toFixed(1) + 'M';
-                        } else if (end >= 1000) {
-                            formattedValue = (value / 1000).toFixed(1) + 'K';
-                        }
-                        obj.textContent = formattedValue;
-                    } else {
+    // Format numbers with commas and abbreviate large numbers
+    let formattedValue = value;
+    
+    // Check if this is the revenue element (contains a $ in original text)
+    const isRevenue = obj.textContent.includes('$');
+    
+    if (end >= 1000000) {
+        formattedValue = (value / 1000000).toFixed(1) + 'M';
+    } else if (end >= 1000) {
+        formattedValue = (value / 1000).toFixed(1) + 'K';
+    }
+    
+    // Add dollar sign back for revenue values
+    if (isRevenue) {
+        formattedValue = '$' + formattedValue;
+    }
+    
+    obj.textContent = formattedValue;
+}
+                     else {
                         obj.textContent = value;
                     }
                     
@@ -1968,20 +1978,23 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const statElements = document.querySelectorAll('.usage-value');
-                        statElements.forEach(el => {
-                            let finalValue;
-                            const text = el.textContent;
-                            // Parse the value from the content
-                            if (text.includes('M')) {
-                                finalValue = parseFloat(text.replace('M', '')) * 1000000;
-                            } else if (text.includes('K')) {
-                                finalValue = parseFloat(text.replace('K', '')) * 1000;
-                            } else {
-                                finalValue = parseFloat(text);
-                            }
-                            
-                            animateValue(el, 0, finalValue, 1500);
-                        });
+statElements.forEach(el => {
+    let finalValue;
+    const text = el.textContent;
+    // First remove any currency symbols and spaces
+    const cleanText = text.replace(/[$,\s]/g, '');
+    
+    // Then parse the number value
+    if (cleanText.includes('M')) {
+        finalValue = parseFloat(cleanText.replace('M', '')) * 1000000;
+    } else if (cleanText.includes('K')) {
+        finalValue = parseFloat(cleanText.replace('K', '')) * 1000;
+    } else {
+        finalValue = parseFloat(cleanText);
+    }
+    
+    animateValue(el, 0, finalValue, 1500);
+});
                         observer.disconnect();
                     }
                 });
