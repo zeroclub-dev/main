@@ -2282,19 +2282,34 @@
                 });
             });
             
-            // Community stats counter animation
+             // Tool usage stats counter animation
             function animateValue(obj, start, end, duration) {
                 let startTimestamp = null;
                 const step = (timestamp) => {
                     if (!startTimestamp) startTimestamp = timestamp;
                     const progress = Math.min((timestamp - startTimestamp) / duration, 1);
                     const value = Math.floor(progress * (end - start) + start);
-                    
-                    if (end >= 1000000) {
-                        obj.textContent = (value / 1000000).toFixed(1) + 'M';
-                    } else if (end >= 1000) {
-                        obj.textContent = (value / 1000).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    } else {
+                    if (obj.classList.contains('usage-value')) {
+    // Format numbers with commas and abbreviate large numbers
+    let formattedValue = value;
+    
+    // Check if this is the revenue element (contains a $ in original text)
+    const isRevenue = obj.textContent.includes('$');
+    
+    if (end >= 1000000) {
+        formattedValue = (value / 1000000).toFixed(1) + 'M';
+    } else if (end >= 1000) {
+        formattedValue = (value / 1000).toFixed(1) + 'K';
+    }
+    
+    // Add dollar sign back for revenue values
+    if (isRevenue) {
+        formattedValue = '$' + formattedValue;
+    }
+    
+    obj.textContent = formattedValue;
+}
+                     else {
                         obj.textContent = value;
                     }
                     
