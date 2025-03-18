@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Club - Website Income Accelerator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #FF6B6B, #FF8E53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #ccc;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: #ccc;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            width: 350px;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .feature-text {
+            color: #b0b0b0;
+            margin-bottom: 15px;
+        }
+        
+        .feature-link {
+            color: #FF6B6B;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .feature-link:hover {
+            text-decoration: underline;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 107, 107, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: #FF6B6B;
+        }
+        
+        .small-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+            gap: 20px;
+        }
+        
+        .small-feature {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 25px;
+            width: 280px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            min-height: 200px;
+        }
+        
+        .small-feature-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .small-feature-text {
+            color: #b0b0b0;
+            font-size: 14px;
+            flex-grow: 1;
+        }
+        
+        .small-feature-link {
+            color: #FF6B6B;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .small-feature-link:hover {
+            text-decoration: underline;
+        }
+        
+        .check-list {
+            text-align: left;
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .check-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+        
+        .check-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 18px;
+            height: 18px;
+            background-color: rgba(255, 107, 107, 0.1);
+            border-radius: 50%;
+        }
+        
+        .check-list li::after {
+            content: "✓";
+            position: absolute;
+            left: 4px;
+            top: 0;
+            color: #FF6B6B;
+            font-weight: bold;
+        }
+        
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #222;
+            margin-top: 80px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .sub-footer {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            color: #555;
+            font-size: 12px;
+        }
+        
+        .sub-footer a {
+            color: #555;
+            text-decoration: none;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .pricing-table {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .pricing-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 40px 30px;
+            width: 300px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card.featured {
+            transform: scale(1.05);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+        
+        .pricing-card.featured::before {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: 12px;
+            right: -30px;
+            background: #FF6B6B;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .pricing-card.featured:hover {
+            transform: translateY(-5px) scale(1.05);
+        }
+        
+        .pricing-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .pricing-price {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .pricing-period {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 30px;
+            display: block;
+        }
+        
+        .pricing-features {
+            text-align: left;
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-features li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+        
+        .pricing-features li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 18px;
+            height: 18px;
+            background-color: rgba(255, 107, 107, 0.1);
+            border-radius: 50%;
+        }
+        
+        .pricing-features li::after {
+            content: "✓";
+            position: absolute;
+            left: 4px;
+            top: 0;
+            color: #FF6B6B;
+            font-weight: bold;
+        }
+        
+        .testimonials {
+            margin-top: 80px;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .testimonial-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: left;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #FF6B6B;
+        }
+        
+        .testimonial-info h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .testimonial-info p {
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .results {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .result-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            width: 280px;
+            text-align: center;
+        }
+        
+        .result-number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #FF6B6B, #FF8E53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .result-text {
+            color: #b0b0b0;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 60px;
+        }
+        
+        .step-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 25px;
+            width: 230px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background-color: #FF6B6B;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 15px auto;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .step-text {
+            color: #b0b0b0;
+            font-size: 14px;
+        }
+        
+        .income-banner {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .income-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .income-amount {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #FF6B6B, #FF8E53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .income-subtitle {
+            font-size: 18px;
+            color: #b0b0b0;
+            margin-bottom: 30px;
+        }
+
+        .discount-badge {
+            background-color: #FF6B6B;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="hero">
+            <div class="logo">ZERO CLUB</div>
+            <h1 class="hero-title">Build Websites. Make Money.</h1>
+            <p class="hero-subtitle">Learn how to create cash-generating websites that earn you passive income while you sleep</p>
+            <a href="#pricing" class="btn">Get Access Now</a>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">No Experience? No Problem.</h2>
+            <p class="section-subtitle">Our step-by-step system works for complete beginners</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">No Coding Required</h3>
+                    <p class="feature-text">Our drag-and-drop templates and step-by-step tutorials make it easy for anyone to build profitable websites, even if you've never built one before.</p>
+                    <a href="#" class="feature-link">See how it works</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Proven Monetization</h3>
+                    <p class="feature-text">We show you exactly how to insert high-paying ad placements, create subscription models, and implement affiliate programs that convert visitors into dollars.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Traffic Explosion</h3>
+                    <p class="feature-text">Master our viral traffic strategies that bring thousands of daily visitors to your site using TikTok, Instagram, and organic search — without spending a cent on ads.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Our Students Are Crushing It</h2>
+            <p class="section-subtitle">Real results from real Zero Club members</p>
+            
+            <div class="results">
+                <div class="result-card">
+                    <div class="result-number">$4,738</div>
+                    <p class="result-text">Average monthly income of our active students</p>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-number">6,249</div>
+                    <p class="result-text">Websites built and monetized by our community</p>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-number">14</div>
+                    <p class="result-text">Days until most students see their first dollar</p>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-number">89%</div>
+                    <p class="result-text">Of students who create 3+ sites reach $1K/month</p>
+                </div>
+            </div>
+            
+            <div class="testimonial-grid" style="margin-top: 60px;">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"I was working a 9-5 job I hated. After just 3 months with Zero Club, my niche recipe website makes $3,200/month from ads and affiliate links. I just quit my job last week!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JT</div>
+                        <div class="testimonial-info">
+                            <h4>Jordan T.</h4>
+                            <p>Zero Club member</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"As a college student, I needed side income. I built a gaming review site using the Zero Club templates. Now it gets 120K monthly visitors and earns around $2,800 from display ads alone."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AK</div>
+                        <div class="testimonial-info">
+                            <h4>Aisha K.</h4>
+                            <p>Zero Club member</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"I had zero tech skills before joining. Now I run 3 niche websites that earn a combined $7,500 monthly. The TikTok traffic strategy alone was worth 10x the price of membership."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">DM</div>
+                        <div class="testimonial-info">
+                            <h4>David M.</h4>
+                            <p>Zero Club member</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Our Proven 5-Step System</h2>
+            <p class="section-subtitle">Follow our blueprint to create profitable websites from scratch</p>
+            
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Niche Selection</h3>
+                    <p class="step-text">Find untapped profitable niches with our Goldmine Formula™ that guarantees high ad rates and affiliate commissions.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Website Creation</h3>
+                    <p class="step-text">Build your site in under 2 hours with our drag-and-drop templates and one-click installation.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Content Strategy</h3>
+                    <p class="step-text">Use our AI-powered content system to create high-converting articles that rank and drive traffic.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Traffic Explosion</h3>
+                    <p class="step-text">Implement our viral TikTok strategy to drive thousands of visitors daily to your new website.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <h3 class="step-title">Monetization</h3>
+                    <p class="step-text">Insert our proven ad placements and offers that convert visitors into dollars automatically.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">What You'll Get Inside Zero Club</h2>
+            <p class="section-subtitle">Everything you need to build profitable websites</p>
+            
+            <div class="grid-features">
+                <div class="small-feature">
+                    <h3 class="small-feature-title">Complete Blueprint</h3>
+                    <ul class="check-list">
+                        <li>Step-by-step video training modules</li>
+                        <li>Niche selection masterclass</li>
+                        <li>Website setup walkthroughs</li>
+                        <li>Content creation templates</li>
+                    </ul>
+                    <a href="#" class="small-feature-link">Learn more</a>
+                </div>
+                
+                <div class="small-feature">
+                    <h3 class="small-feature-title">Traffic Generation</h3>
+                    <ul class="check-list">
+                        <li>TikTok viral strategy playbook</li>
+                        <li>Instagram reels traffic formula</li>
+                        <li>SEO keyword research tools</li>
+                        <li>Traffic Analytics dashboard</li>
+                    </ul>
+                    <a href="#" class="small-feature-link">Learn more</a>
+                </div>
+                
+                <div class="small-feature">
+                    <h3 class="small-feature-title">Monetization Toolkit</h3>
+                    <ul class="check-list">
+                        <li>High-paying ad network access</li>
+                        <li>Premium affiliate program directory</li>
+                        <li>Subscription model templates</li>
+                        <li>Revenue optimization tools</li>
+                    </ul>
+                    <a href="#" class="small-feature-link">Learn more</a>
+                </div>
+                
+                <div class="small-feature">
+                    <h3 class="small-feature-title">Community & Support</h3>
+                    <ul class="check-list">
+                        <li>Private Discord community</li>
+                        <li>Weekly live Q&A sessions</li>
+                        <li>Expert website reviews</li>
+                        <li>Accountability partnerships</li>
+                    </ul>
+                    <a href="#" class="small-feature-link">Learn more</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="income-banner">
+                <h3 class="income-title">Average Monthly Income After 6 Months</h3>
+                <div class="income-amount">$4,738</div>
+                <p class="income-subtitle">Based on students who complete all modules and launch at least 2 websites</p>
+            </div>
+        </section>
+
+        <section id="pricing" class="section">
+            <h2 class="section-title">Join Zero Club Today</h2>
+            <p class="section-subtitle">Start building your website empire now</p>
+            
+            <div class="pricing-table">
+                <div class="pricing-card">
+                    <span class="discount-badge">80% OFF</span>
+                    <h3 class="pricing-name">Monthly</h3>
+                    <div class="pricing-price">$19.99</div>
+                    <span class="pricing-period">per month</span>
+                    <ul class="pricing-features">
+                        <li>Complete website building course</li>
+                        <li>10 niche website templates</li>
+                        <li>Basic traffic generation guides</li>
+                        <li>Ad monetization training</li>
+                        <li>Community access</li>
+                    </ul>
+                    <a href="#" class="btn">Join Now</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <span class="discount-badge">SAVE 83%</span>
+                    <h3 class="pricing-name">Annual</h3>
+                    <div class="pricing-price">$49.99</div>
+                    <span class="pricing-period">per year</span>
+                    <ul class="pricing-features">
+                        <li>All Monthly features</li>
+                        <li>Save 79% vs monthly plan</li>
+                        <li>Advanced TikTok traffic masterclass</li>
+                        <li>Premium affiliate marketing training</li>
+                        <li>50 premium website templates</li>
+                        <li>AI content generation tools</li>
+                        <li>Monthly group coaching calls</li>
+                    </ul>
+                    <a href="#" class="btn">Join Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <span class="discount-badge">BEST VALUE</span>
+                    <h3 class="pricing-name">Lifetime</h3>
+                    <div class="pricing-price">$199</div>
+                    <span class="pricing-period">one-time payment</span>
+                    <ul class="pricing-features">
+                        <li>All Annual features</li>
+                        <li>Lifetime access to all updates</li>
+                        <li>1-on-1 website review sessions</li>
+                        <li>White label reseller rights</li>
+                        <li>Advanced subscription model training</li>
+                        <li>Private mastermind group</li>
+                        <li>Done-for-you niche research</li>
+                    </ul>
+                    <a href="#" class="btn">Join Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero" style="padding-top: 20px; padding-bottom: 120px;">
+            <h1 class="hero-title">Start Your Website Empire Today</h1>
+            <p class="hero-subtitle">Join thousands of students who are building profitable websites and earning passive income every month</p>
+            <a href="#pricing" class="btn">Get Started Now</a>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Refund Policy</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <p class="copyright">Copyright 2023-2025 Zero Club LLC. All rights reserved.</p>
+            <div class="sub-footer">
+                <a href="#">Privacy</a>
+                <span>-</span>
+                <a href="#">Terms</a>
+                <span>-</span>
+                <a href="#">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
