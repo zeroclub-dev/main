@@ -1364,7 +1364,7 @@
                         
                         <div class="course-grid">
                             <div class="course-card">
-                                <div class="course-image" style="background-image: url('/api/placeholder/800/500');">
+                                <div class="course-image"></div>
                                     <div class="course-progress">
                                         <div class="course-progress-fill" style="width: 65%"></div>
                                     </div>
@@ -1420,7 +1420,7 @@
                             </div>
                             
                             <div class="course-card">
-                                <div class="course-image" style="background-image: url('/api/placeholder/800/500');">
+                                <div class="course-image"></div>
                                     <div class="course-progress">
                                         <div class="course-progress-fill" style="width: 0%"></div>
                                     </div>
@@ -1728,6 +1728,24 @@
     </div>
 
     <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const courseCards = document.querySelectorAll('.course-card');
+
+    courseCards.forEach(card => {
+        const title = card.getAttribute('data-title');
+        const imageDiv = card.querySelector('.course-image');
+
+        // Encode the title to make it URL safe (e.g., "Landing Page" -> "Landing+Page")
+        const encodedTitle = encodeURIComponent(title);
+
+        // Create placeholder URL
+        const placeholderURL = `https://via.placeholder.com/800x500/1a1a1a/ffffff?text=${encodedTitle}`;
+
+        // Set the background-image dynamically
+        imageDiv.style.backgroundImage = `url('${placeholderURL}')`;
+    });});
+
         // Dropdown toggle functionality
         document.addEventListener('DOMContentLoaded', function() {
             // User dropdown toggle
